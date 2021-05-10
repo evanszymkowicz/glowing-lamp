@@ -2,6 +2,6 @@ FROM node:14
 
 WORKDIR /opt/app
 
-RUN npm start
+RUN npm run start
 
-CMD npm watch
+CMD npm run watch
