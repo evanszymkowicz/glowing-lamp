@@ -2,6 +2,6 @@ FROM node:14
 
 WORKDIR /opt/app
 
-RUN npm run start
+RUN yarn
 
-CMD npm run watch
+CMD yarn watch
