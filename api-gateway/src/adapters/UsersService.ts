@@ -2,10 +2,21 @@ import config from "config";
 import got from "got";
 
 const USERS_SERVICE_URI = <string>config.get("USERS_SERVICE_URI");
-
-export default class UsersService {
-    static async fetchUserSession({ sessionId}: { sessionId: string}) {
-        const body = await got.get(`${USERS_SERVICE_URI}/sessions/${sessionId}`).json();
-        return body;
-    }
+export interface User {
+    createdAt: string;
+    id: string;
+    username: string;
 }
+export default class UsersService {
+    static async fetchUser({ userId }: { userId: string }): Promise<User | null> {
+      const body = await got.get(`${USERS_SERVICE_URI}/users/${userId}`).json();
+      if (!body) return null;
+      return <User>body;
+    }
+  
+    static async fetchUserSession({ sessionId }: { sessionId: string }): Promise<UserSession | null> {
+      const body = await got.get(`${USERS_SERVICE_URI}/sessions/${sessionId}`).json();
+      if (!body) return null;
+      return <UserSession>body;
+    }
+  }
